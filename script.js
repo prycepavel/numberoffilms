@@ -12,16 +12,36 @@ const personalMovieDB = {
   privat: false
 };
 
-// Дополниетльные вопросы пользователю
-const a = prompt('Один из последних просмотренных фильмов', ''),
-      b = +prompt('На сколько оцените его?', ''),
-      c = prompt('Один из последних просмотренных фильмов', ''),
-      d = +prompt('На сколько оцените его?', '');
-      
+/* 
+  Вопросы пользователю, задаются два раза
+  Ответы записываются в объект personalMovieDB
+  Проверка ответа на пустую строку, null, и длинну не более 50 символов
+  Возвращение пользователя к предыдущим вопросом, если что-то пошло не так
+*/
+for (let i = 0; i < 2; i++){
+  
+  const a = prompt('Один из последних просмотренных фильмов', ''),
+        b = +prompt('На сколько оцените его?', '');
+  
+  if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+    personalMovieDB.movies[a] = b;
+    console.log('Успешно!');
+  } else {
+    console.log('Ошибка');
+    i--;
+  }
 
-//  Добавление ответов на дополнительные вопросы в объект personalMovieDB
-//  Чтобы корректно добавить свойство в объект нужно использовать квадратные скобки []
-personalMovieDB.movies[a] = b;
-personalMovieDB.movies[c] = d;
+}
+
+// Проверка количества просмотренных фильмов
+if (personalMovieDB.count < 10) {
+  console.log('Просмотрено довольно мало фильмов');
+} else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30){
+  console.log('Вы классический зритель');
+} else if (personalMovieDB.count >= 30) {
+  console.log('Вы киноман');
+} else {
+  console.log('Произошла ошибка');
+}
 
 console.log(personalMovieDB);
